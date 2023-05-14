@@ -2,10 +2,7 @@ name: Build Dist
 
 on:
   workflow_dispatch:
-    inputs:
-      run:
-        description: 'Run the build and commit action'
-        required: true
+
 
 jobs:
   build:
