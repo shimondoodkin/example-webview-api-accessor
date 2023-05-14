@@ -26,11 +26,14 @@
    alert(e);
   }
   function sendMessage() {
+    // take data from the form above
     const from= {"id":document.querySelector("[name=from_id]").value,"name":document.querySelector("[name=from_name]").value};
     const to= {"id":document.querySelector("[name=to_id]").value,"name":document.querySelector("[name=to_name]").value};
     const participants={}; try{ participants=JSON.parse(document.querySelector("[name=participants]").value); }catch(e){onoerror(e)}
     const settings=[]; try{ settings=JSON.parse(document.querySelector("[name=settings]").value); }catch(e){onoerror(e)}
     const message= document.querySelector("[name=message]").value;
+
+    // make messageObject from the form above
     const messageObject = { to, from, participants, settings , message };
     
     const postMessageTarget=document.getElementById("webview").contentWindow
