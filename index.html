@@ -26,7 +26,6 @@
    alert(e);
   }
   function sendMessage() {
-    message Data to be sent to the other window. The data is serialized using the structured clone algorithm. This means you can pass a broad variety of data objects safely to the destination window without having to serialize them yourself.
     const from= {"id":document.querySelector("[name=from_id]").value,"name":document.querySelector("[name=from_name]").value};
     const to= {"id":document.querySelector("[name=to_id]").value,"name":document.querySelector("[name=to_name]").value};
     const participants={}; try{ participants=JSON.parse(document.querySelector("[name=participants]").value); }catch(e){onoerror(e)}
@@ -36,9 +35,8 @@
     
     const postMessageTarget=document.getElementById("webview").contentWindow
     const targetOrigin="*";
-    const transferSentObjectOwnership=true;
+    const transferSentObjectOwnership=true; // MDN: message Data to be sent to the other window. The data is serialized using the structured clone algorithm. This means you can pass a broad variety of data objects safely to the destination window without having to serialize them yourself.
     postMessageTarget.postMessage(messageObject, targetOrigin, transferSentObjectOwnership);
-
   }
 </script>
 <iframe id="webview" src="api-accessor.html" style="height:50%; width:98%"></iframe>
