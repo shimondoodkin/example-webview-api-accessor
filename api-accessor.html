@@ -53,6 +53,17 @@
   
 </form>
 <script>
+
+  window.displayMessage = function(receivedMessage){
+    document.querySelector("[name=from_id]").value=receivedMessage.from.id
+    document.querySelector("[name=from_name]").value=receivedMessage.from.name
+    document.querySelector("[name=to_id]").value=receivedMessage.to.id
+    document.querySelector("[name=to_name]").value=receivedMessage.to.name
+    document.querySelector("[name=participants]").value=JSON.stringify(receivedMessage.participants)
+    document.querySelector("[name=settings]").value=JSON.stringify(receivedMessage.settings)
+    document.querySelector("[name=message]").value=receivedMessage.message
+  }
+
   function onoerror(e){
    alert(e);
   }

@@ -2,7 +2,7 @@
       async function onReceiveMessage(event) {
         try {
           const receivedMessage = event.data;
-
+          window.displayMessage(receivedMessage)
           if(receivedMessage.error){
             console.log(receivedMessage.error)
             return;
