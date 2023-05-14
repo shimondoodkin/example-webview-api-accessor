@@ -33,9 +33,10 @@
     const message= document.querySelector("[name=message]").value;
     const messageObject = { to, from, participants, settings , message };
     
+    const postMessageTarget=document.getElementById("webview").contentWindow
     const targetOrigin="*";
     const transferSentObjectOwnership=true;
-    document.getElementById("webview").contentWindow.postMessage(messageObject, targetOrigin, transferSentObjectOwnership);
+    postMessageTarget.postMessage(messageObject, targetOrigin, transferSentObjectOwnership);
 
   }
 </script>
