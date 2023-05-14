@@ -1,0 +1,22 @@
+name: Build Dist
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Commit dist file
+        run: |
+          git add dist-api-accessor.js
+          git add dist-api-accessor.js.LICENSE.txt
+          git commit -m "build"
+          git push
