@@ -16,8 +16,7 @@
 
   <textarea name="settings" placeholder="Your configuration">[{"setting1":"value2"},{"setting2":"value2"}]</textarea>
   
-  <textarea name="message" placeholder="Your message">test message</textarea>
-
+  <textarea name="message" placeholder="Your message">this is a test</textarea>
 
   <input type="submit" value="Send Message">
 </form>
@@ -26,7 +25,7 @@
    alert(e);
   }
   function sendMessage() {
-
+    message Data to be sent to the other window. The data is serialized using the structured clone algorithm. This means you can pass a broad variety of data objects safely to the destination window without having to serialize them yourself.
     const from= {"id":document.querySelector("[name=from_id]").value,"name":document.querySelector("[name=from_name]").value};
     const to= {"id":document.querySelector("[name=to_id]").value,"name":document.querySelector("[name=to_name]").value};
     const participants={}; try{ participants=JSON.parse(document.querySelector("[name=participants]").value); }catch(e){onoerror(e)}
@@ -40,6 +39,6 @@
 
   }
 </script>
-<iframe id="webview" src="api-accessor.html"></iframe>
+<iframe id="webview" src="api-accessor.html" style="height:50%; width:98%"></iframe>
 </body>
 </html>
