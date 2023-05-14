@@ -5,24 +5,52 @@
     <title>API Accessor</title>
   </head>
   <body>
-    <script src="dist-api-accessor.js"></script>
-    
-<form id="chat-bot-form"  onsubmit="sendMessage(); return false;">
+    <script src="src-api-accessor.js"></script>
+
+<form id="chat-bot-form"  onsubmit="try {sendMessage(); }catch(e){console.log(e.stack)}; return false;">
 
   <h2>API Accessor form</h2>
-  <input type="text" name="from_id" placeholder="Your id" value="2">
-  <input type="text" name="from_name" placeholder="From name" value="me">
+
   
-  <input type="text" name="to_id" placeholder="Your id" value="1">
-  <input type="text" name="to_name" placeholder="From name" value="bot">
+  <div>
+    <label for="from_id">Your ID:</label>
+    <input type="text" id="from_id" name="from_id" placeholder="Your id" value="2">
+  </div>
 
-  <textarea name="participants" placeholder="List of group participants">{"1":"me","2":"bot"}</textarea>
+  <div>
+    <label for="from_name">From Name:</label>
+    <input type="text" id="from_name" name="from_name" placeholder="From name" value="me">
+  </div>
 
-  <textarea name="settings" placeholder="Your configuration">[{"setting1":"value2"},{"setting2":"value2"}]</textarea>
+  <div>
+    <label for="to_id">Recipient's ID:</label>
+    <input type="text" id="to_id" name="to_id" placeholder="Your id" value="1">
+  </div>
+
+  <div>
+    <label for="to_name">Recipient's Name:</label>
+    <input type="text" id="to_name" name="to_name" placeholder="From name" value="bot">
+  </div>
+
+  <div>
+    <label for="participants">Group Participants:</label>
+    <textarea id="participants" name="participants" placeholder="List of group participants">{"1":"me","2":"bot"}</textarea>
+  </div>
+
+  <div>
+    <label for="settings">Settings:</label>
+    <textarea id="settings" name="settings" placeholder="Your configuration">[{"setting1":"value2"},{"setting2":"value2"}]</textarea>
+  </div>
+
+  <div>
+    <label for="message">Message:</label>
+    <textarea id="message" name="message" placeholder="Your message">this is a test</textarea>
+  </div>
+
+  <div>
+    <input type="submit" value="Send Message">
+  </div>
   
-  <textarea name="message" placeholder="Your message">this is a test</textarea>
-
-  <input type="submit" value="Send Message">
 </form>
 <script>
   function onoerror(e){
@@ -32,19 +60,14 @@
     // take data from the form above
     const from= {"id":document.querySelector("[name=from_id]").value,"name":document.querySelector("[name=from_name]").value};
     const to= {"id":document.querySelector("[name=to_id]").value,"name":document.querySelector("[name=to_name]").value};
-    const participants={}; try{ participants=JSON.parse(document.querySelector("[name=participants]").value); }catch(e){onoerror(e)}
-    const settings=[]; try{ settings=JSON.parse(document.querySelector("[name=settings]").value); }catch(e){onoerror(e)}
+    let participants={}; try{ participants=JSON.parse(document.querySelector("[name=participants]").value); }catch(e){onoerror(e)}
+    let settings=[]; try{ settings=JSON.parse(document.querySelector("[name=settings]").value); }catch(e){onoerror(e)}
     const message= document.querySelector("[name=message]").value;
 
     // make messageObject from the form above
     const messageObject = { to, from, participants, settings , message };
 
-    postMessageTarget=window //     postMessageTarget=document.getElementById("webview").contentWindow
-    
-    const targetOrigin="*";
-    const transferSentObjectOwnership=true; // MDN: message Data to be sent to the other window. The data is serialized using the structured clone algorithm. This means you can pass a broad variety of data objects safely to the destination window without having to serialize them yourself.
-    postMessageTarget.postMessage(messageObject, targetOrigin, transferSentObjectOwnership);
-
+    window.postMessage(messageObject, "*"); // send message to self (there are two forms one from outside one from inside, both similar)
   }
 </script>
     

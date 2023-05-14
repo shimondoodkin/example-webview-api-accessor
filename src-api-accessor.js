@@ -1,24 +1,35 @@
- window.addEventListener("message", receiveMessage, false);
-      async function receiveMessage(event) {
+ window.addEventListener("message", onReceiveMessage, false);
+      async function onReceiveMessage(event) {
         try {
+          const receivedMessage = event.data;
 
-          const messagee_target = window.parent  // const messagee_target = event.source
-
-
-          // if (event.origin !== document.origin) {
-          //   return;
-          // }
-          const messageObject = event.data;
-          const iam=messageObject.to
-          const receivedFrom=messageObject.from
-
-          const requestJSON= { message }
-          const response = await fetch("https://postman-echo.com/post", { method: "POST", body: JSON.stringify(requestJSON),  });
+          if(receivedMessage.error){
+            console.log(receivedMessage.error)
+            return;
+          }
+          
+          const iam=receivedMessage.to
+          const receivedFrom=receivedMessage.from
+          
+          // make request
+          const requestData= { message: receivedMessage.message }
+          const response = await fetch("https://echo.hoppscotch.io", 
+          { 
+            method: "POST",
+            headers:{'Content-Type':'application/json' },
+            body: JSON.stringify(requestData)
+          });
+          
           if (response.status !== 200) {
             throw new Error("http status is not 200")
           }
           else {
-            const responseData = await response.json();
+            let responseData = await response.json()
+            
+            //work with response data 
+            // use the echo response
+            responseData=JSON.parse(responseData.data)
+
             const messages = [];
             const message = {
              from: iam,
@@ -27,9 +38,10 @@
             };
             messages.push(message);
            
-            messagee_target.postMessage(messages, "*");  // event.source.postMessage(messages, event.origin);
+            top.postMessage(messages, "*");  // event.source.postMessage(messages, event.origin);
           }
         } catch (e) { 
-          messagee_target.postMessage({"error": e?.stack || e.message || JSON.stringify(e) }, "*");
+          top.postMessage({"error": e?.stack || e.message || JSON.stringify(e) }, "*");
         }
+        return true;
       }
