@@ -1,22 +1,4 @@
 name: Build Dist
-on:
-  workflow_dispatch:
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install dependencies
-        run: npm install
-      - name: Build
-        run: npm run build
-      - name: Commit dist file
-        run: |
-          git add dist-api-accessor.js
-          git add dist-api-accessor.js.LICENSE.txt
-          git commit -m "build"
-          git push
-
-name: Build and commit dist file
 
 on:
   workflow_dispatch:
