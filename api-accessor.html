@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chat Bot API Accessor</title>
+  </head>
+  <body>
+    <h1>Chat Bot API Accessor</h1>
+    <script src="api-accessor.js"></script>
+    
+    
+<form id="chat-bot-form"  onsubmit="sendMessage(); return false;">
+
+  <input type="text" name="from_id" placeholder="Your id" value="2">
+  <input type="text" name="from_name" placeholder="From name" value="me">
+  
+  <input type="text" name="to_id" placeholder="Your id" value="1">
+  <input type="text" name="to_name" placeholder="From name" value="bot">
+
+  <textarea name="participants" placeholder="List of group participants">{"1":"me","2":"bot"}</textarea>
+
+  <textarea name="settings" placeholder="Your configuration">[{"setting1":"value2"},{"setting2":"value2"}]</textarea>
+  
+  <textarea name="message" placeholder="Your message">this is a test</textarea>
+
+  <input type="submit" value="Send Message">
+</form>
+<script>
+  function onoerror(e){
+   alert(e);
+  }
+  function sendMessage() {
+    message Data to be sent to the other window. The data is serialized using the structured clone algorithm. This means you can pass a broad variety of data objects safely to the destination window without having to serialize them yourself.
+    const from= {"id":document.querySelector("[name=from_id]").value,"name":document.querySelector("[name=from_name]").value};
+    const to= {"id":document.querySelector("[name=to_id]").value,"name":document.querySelector("[name=to_name]").value};
+    const participants={}; try{ participants=JSON.parse(document.querySelector("[name=participants]").value); }catch(e){onoerror(e)}
+    const settings=[]; try{ settings=JSON.parse(document.querySelector("[name=settings]").value); }catch(e){onoerror(e)}
+    const message= document.querySelector("[name=message]").value;
+    const messageObject = { to, from, participants, settings , message };
+    
+    const targetOrigin="*";
+    const transferSentObjectOwnership=true;
+    postMessageTarget=window //     postMessageTarget=document.getElementById("webview").contentWindow
+    postMessageTarget.postMessage(messageObject, targetOrigin, transferSentObjectOwnership);
+
+  }
+</script>
+    
+    
+  </body>
+</html>
