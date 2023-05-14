@@ -1,11 +1,6 @@
 name: Build Dist
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,3 +15,38 @@ jobs:
           git add dist-api-accessor.js.LICENSE.txt
           git commit -m "build"
           git push
+
+name: Build and commit dist file
+
+on:
+  workflow_dispatch:
+    inputs:
+      run:
+        description: 'Run the build and commit action'
+        required: true
+
+jobs:
+  build:
+    name: Build and commit
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+            fetch-depth: 0
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build with webpack
+        run: npm run build
+
+      - name: Commit dist file
+      - uses: actions/checkout@v3
+      - run: |
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git add .
+            git commit -m "Build"
+            git push
