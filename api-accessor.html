@@ -2,15 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Chat Bot API Accessor</title>
+    <title>API Accessor</title>
   </head>
   <body>
-    <h1>Chat Bot API Accessor</h1>
     <script src="api-accessor.js"></script>
-    
     
 <form id="chat-bot-form"  onsubmit="sendMessage(); return false;">
 
+  <h2>API Accessor form</h2>
   <input type="text" name="from_id" placeholder="Your id" value="2">
   <input type="text" name="from_name" placeholder="From name" value="me">
   
@@ -30,17 +29,17 @@
    alert(e);
   }
   function sendMessage() {
-    message Data to be sent to the other window. The data is serialized using the structured clone algorithm. This means you can pass a broad variety of data objects safely to the destination window without having to serialize them yourself.
     const from= {"id":document.querySelector("[name=from_id]").value,"name":document.querySelector("[name=from_name]").value};
     const to= {"id":document.querySelector("[name=to_id]").value,"name":document.querySelector("[name=to_name]").value};
     const participants={}; try{ participants=JSON.parse(document.querySelector("[name=participants]").value); }catch(e){onoerror(e)}
     const settings=[]; try{ settings=JSON.parse(document.querySelector("[name=settings]").value); }catch(e){onoerror(e)}
     const message= document.querySelector("[name=message]").value;
     const messageObject = { to, from, participants, settings , message };
+
+    postMessageTarget=window //     postMessageTarget=document.getElementById("webview").contentWindow
     
     const targetOrigin="*";
-    const transferSentObjectOwnership=true;
-    postMessageTarget=window //     postMessageTarget=document.getElementById("webview").contentWindow
+    const transferSentObjectOwnership=true; // MDN: message Data to be sent to the other window. The data is serialized using the structured clone algorithm. This means you can pass a broad variety of data objects safely to the destination window without having to serialize them yourself.
     postMessageTarget.postMessage(messageObject, targetOrigin, transferSentObjectOwnership);
 
   }
