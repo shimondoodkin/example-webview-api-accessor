@@ -1,0 +1,27 @@
+{
+  "name": "example-webview-api-accessor",
+  "version": "1.0.0",
+  "description": "my experiment to run a chat bot in an iframe",
+  "main": "dist-api-accessor.js",
+  "scripts": {
+    "build": "npx webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shimondoodkin/example-webview-api-accessor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shimondoodkin/example-webview-api-accessor/issues"
+  },
+  "homepage": "https://github.com/shimondoodkin/example-webview-api-accessor#readme",
+  "devDependencies": {
+    "@babel/core": "^7.21.8",
+    "@babel/preset-env": "^7.21.5",
+    "babel-loader": "^9.1.2",
+    "webpack": "^5.82.1",
+    "webpack-cli": "^5.1.1"
+  }
+}
